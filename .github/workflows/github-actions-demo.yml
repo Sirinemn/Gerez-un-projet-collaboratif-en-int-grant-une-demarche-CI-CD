@@ -29,7 +29,7 @@ jobs:
         run: mvn verify -Dspring.profiles=test
 
       - name: Generate JaCoCo reports
-        run: mvn test-coverage -Dspring.profiles=test
+        run: mvn test -Dspring.profiles=test
 
       - name: Upload JaCoCo reports
         uses: actions/upload-artifact@v4
