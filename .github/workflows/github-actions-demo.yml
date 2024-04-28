@@ -59,7 +59,7 @@ jobs:
          run: npm run test:ci
           
        - name: Generate Karma reports
-         run: ng test --no-watch --code-coverage --browsers=ChromeHeadless
+         run: npx karma start --single-run --browsers=ChromeHeadless --coverage-reporter
           
        - name: Upload Karma reports
          uses: actions/upload-artifact@v4
