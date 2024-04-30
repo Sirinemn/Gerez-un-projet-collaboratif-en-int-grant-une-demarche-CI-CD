@@ -85,7 +85,7 @@ jobs:
       - name: Build and push Angular Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./front
           file: front/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bobapp:latest, ${{ secrets.DOCKER_HUB_USERNAME }}/bobapp:${{github.run_number}}
