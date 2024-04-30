@@ -83,10 +83,12 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and push Angular Docker image
-        id: build-and-push-frontend
-        run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/front:latest . -f front/Dockerfile
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/front:latest
+        uses: docker/build-push-action@v4
+        with:
+          context: front:latest
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/projet10:latest, ${{ secrets.DOCKER_HUB_USERNAME }}/projet10:${{github.run_number}}
+        
 
       - name: Build and push Spring Boot Docker image
         id: build-and-push-backend
