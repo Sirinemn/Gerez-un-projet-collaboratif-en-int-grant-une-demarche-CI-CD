@@ -85,13 +85,13 @@ jobs:
       - name: Build and push Angular Docker image
         id: build-and-push-frontend
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/front:latest . -f front/Dockerfile
+          docker build:prod -t ${{ secrets.DOCKER_HUB_USERNAME }}/front:latest . -f front/Dockerfile
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/front:latest
 
       - name: Build and push Spring Boot Docker image
         id: build-and-push-backend
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/back:latest . -f back/Dockerfile
+          docker build:prod -t ${{ secrets.DOCKER_HUB_USERNAME }}/back:latest . -f back/Dockerfile
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/back:latest
   
 
