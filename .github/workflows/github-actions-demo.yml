@@ -44,31 +44,32 @@ jobs:
       run:
         working-directory: front
     steps:
-       - name: Checkout code
-         uses: actions/checkout@v4
-          
-       - name: Setup Node.js
-         uses: actions/setup-node@v4
-         with:
-            node-version: 16
-          
-       - name: Install dependencies
-         run: npm install
-          
-       - name: Run tests
-         run: npm run test:ci
-          
-       - name: Generate Karma reports
-         run: npm run test -- --no-watch --code-coverage
-          
-       - name: Upload Karma reports
-         uses: actions/upload-artifact@v4
-         with:
-            name: karma-reports
-            path: front/coverage/bobapp/*
-  
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test:ci
+
+      - name: Generate Karma reports
+        run: npm run test -- --no-watch --code-coverage
+
+      - name: Upload Karma reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: karma-reports
+          path: front/coverage/bobapp/*
+
   deploy-back-and-front-to-docker-hub:
     runs-on: ubuntu-latest
+    if: ${{ success() }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -88,15 +89,12 @@ jobs:
           context: ./front
           file: front/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bobapp:latest, ${{ secrets.DOCKER_HUB_USERNAME }}/bobapp:${{github.run_number}}
-        
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bobappfront:latest, ${{ secrets.DOCKER_HUB_USERNAME }}/bobappfront:${{github.run_number}}
 
       - name: Build and push Spring Boot Docker image
-        id: build-and-push-backend
-        run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/back:latest . -f back/Dockerfile
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/back:latest
-  
-
-
-
+        uses: docker/build-push-action@v3
+        with:
+          context: ./back
+          file: back/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bobappback:latest, ${{ secrets.DOCKER_HUB_USERNAME }}/bobappback:${{github.run_number}}
