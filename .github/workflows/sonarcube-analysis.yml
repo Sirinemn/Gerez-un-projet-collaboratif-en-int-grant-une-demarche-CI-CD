@@ -25,7 +25,7 @@ jobs:
       - name: Run SonarScanner for Angular
         run: |
           sonar-scanner \
-          -Dsonar.projectKey=angular-project-key \
+          -Dsonar.projectKey=Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD-front \
           -Dsonar.sources=src \
           -Dsonar.tests=test \
           -Dsonar.coverage.reportPaths=coverage/lcov.info
