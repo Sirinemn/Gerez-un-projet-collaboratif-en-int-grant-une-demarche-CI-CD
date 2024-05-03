@@ -5,26 +5,24 @@ on:
     branches:
       - main
 
-jobs:    # Analyse de la qualité du code SonarQube
-  frontanalyse:
-     runs-on: ubuntu-latest
-     defaults:
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    defaults:
       run:
-       working-directory: front
-     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install SonarScanner
-        uses: sonarsource/sonarqube-scan-action@master
+        working-directory: front
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: sonarsource/sonarqube-scan-action@master
         env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-    # Analyse du code front-end
-      - name: Run SonarScanner for Angular
-        run: |
-         sonar-scanner \
-         -Dsonar.projectKey=frontend-analyse \
-         -Dsonar.sources=src \
-         -Dsonar.tests=test \
-         -Dsonar.coverage.reportPaths=coverage/lcov.info
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      # If you wish to fail your job when the Quality Gate is red, uncomment the
+      # following lines. This would typically be used to fail a deployment.
+      # - uses: sonarsource/sonarqube-quality-gate-action@master
+      #   timeout-minutes: 5
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
