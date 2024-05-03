@@ -28,8 +28,29 @@ jobs:
             key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
             restore-keys: ${{ runner.os }}-m2
         - name: Build and analyze
+            
+            
+          run: 
+              mvn clean \
+               -Dcheckstyle.skip=true \
+               -Dmaven.javadoc.skip=true \
+                org.jacoco:jacoco-maven-plugin:prepare-agent \
+                package \
+                verify -Dgpg.skip=true \
+                org.jacoco:jacoco-maven-plugin:report \
+                org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+                -Dsonar.organization=robtimus-github \
+                --file pom.xml -B --no-transfer-progress
           env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=back
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: https://sonarcloud.io
+        - name: SonarQube Quality Gate check
+          uses: sonarsource/sonarqube-quality-gate-action@master
+          timeout-minutes: 5
+          env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          with:
+                scanMetadataReportFile: target/sonar/report-task.txt
           
