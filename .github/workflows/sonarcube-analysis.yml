@@ -5,29 +5,26 @@ on:
     branches:
       - main
 
-jobs:
-  build:
-    name: Build and analyze
-    runs-on: ubuntu-latest
-    
-  steps:
-       # Analyse de la qualité du code SonarQube
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+jobs:    # Analyse de la qualité du code SonarQube
+  frontanalyse:
+     runs-on: ubuntu-latest
+     defaults:
+      run:
+       working-directory: front
+     steps:
       - uses: actions/checkout@v3
 
       - name: Install SonarScanner
         uses: sonarsource/sonarqube-scan-action@master
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      # Analyse du code front-end
+    # Analyse du code front-end
       - name: Run SonarScanner for Angular
         run: |
-          sonar-scanner \
-          -Dsonar.projectKey=frontend-analyse \
-          -Dsonar.sources=src \
-          -Dsonar.tests=test \
-          -Dsonar.coverage.reportPaths=coverage/lcov.info
+         sonar-scanner \
+         -Dsonar.projectKey=frontend-analyse \
+         -Dsonar.sources=src \
+         -Dsonar.tests=test \
+         -Dsonar.coverage.reportPaths=coverage/lcov.info
