@@ -1,0 +1,6 @@
+projectKey=frontend-analyse
+serverUrl=http://localhost:9090
+serverVersion=10.5.1.90531
+dashboardUrl=http://localhost:9090/dashboard?id=frontend-analyse
+ceTaskId=d14162ba-9c84-45bd-ac89-6032f4da4f6e
+ceTaskUrl=http://localhost:9090/api/ce/task?id=d14162ba-9c84-45bd-ac89-6032f4da4f6e
