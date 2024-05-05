@@ -24,16 +24,7 @@ jobs:
       - name: Run SonarScanner for Angular
         run: |
           sonar-scanner \
-          -Dsonar.projectKey=angular-project-key \
+          -Dsonar.projectKey=frontend-analyse \
           -Dsonar.sources=src \
           -Dsonar.tests=test \
           -Dsonar.coverage.reportPaths=coverage/lcov.info
-
-      # Analyse du code back-end
-      - name: Run SonarScanner for Spring
-        run: |
-          sonar-scanner \
-          -Dsonar.projectKey=spring-project-key \
-          -Dsonar.sources=src/main/java \
-          -Dsonar.tests=src/test/java \
-          -Dsonar.coverage.reportPaths=target/site/cobertura/cobertura.xml
