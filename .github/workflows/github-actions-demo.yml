@@ -67,7 +67,7 @@ jobs:
           name: karma-reports
           path: front/coverage/bobapp/*
 
-  deploy-back-and-front-to-docker-hub:
+  deploy:
     runs-on: ubuntu-latest
     if: ${{ success() }}
     steps:
