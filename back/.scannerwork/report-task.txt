@@ -1,0 +1,6 @@
+projectKey=backend-analyse
+serverUrl=http://localhost:9090
+serverVersion=10.5.1.90531
+dashboardUrl=http://localhost:9090/dashboard?id=backend-analyse
+ceTaskId=4eb48e29-19ac-47fa-803b-7b8ac6575e29
+ceTaskUrl=http://localhost:9090/api/ce/task?id=4eb48e29-19ac-47fa-803b-7b8ac6575e29
