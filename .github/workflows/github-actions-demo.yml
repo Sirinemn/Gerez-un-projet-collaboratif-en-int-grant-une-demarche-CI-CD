@@ -69,7 +69,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ success() }}
+    needs: [frontest-tests, backend-tests, SonarQube-Analysis-backend]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
