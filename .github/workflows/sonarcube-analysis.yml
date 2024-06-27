@@ -3,7 +3,7 @@ name: SonarQube-Front
 on:
   push:
     branches:
-      - main
+      - test
 jobs:
   build:
     name: Build and analyze
