@@ -143,6 +143,13 @@ jobs:
         run: npm install
       - name: install scanner
         run: npm install -g sonarqube-scanner
-      - name: run sonar scanner
-        run: sonar-scanner -Dsonar.token=${{secrets.SONAR_TOKEN}}
+      - name: Run Sonar scanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=Projet10-Frontend \
+            -Dsonar.projectName='Projet10 Frontend' \
+            -Dsonar.sources=./src \
           
