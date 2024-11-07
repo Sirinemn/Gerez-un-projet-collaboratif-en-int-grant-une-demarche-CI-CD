@@ -129,8 +129,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: "${{ secrets.SONAR_HOST_URL }}"
         run: |
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \ 
-           -Dsonar.projectKey=Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD \
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar\ 
+           -Dsonar.projectKey=Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD\
            -Dsonar.projectName='Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD'
 
   SonarQube-Analysis-frontend:
