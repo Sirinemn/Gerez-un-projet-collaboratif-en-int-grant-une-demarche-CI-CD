@@ -130,8 +130,8 @@ jobs:
           SONAR_HOST_URL: "${{ secrets.SONAR_HOST_URL }}"
         run: |
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
-          -Dsonar.projectKey=Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD \
-          -Dsonar.projectName="Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD"
+          -Dsonar.projectKey=Projet10-BackEnd \
+          -Dsonar.projectName="Projet10-BackEnd"
 
 
   SonarQube-Analysis-frontend:
