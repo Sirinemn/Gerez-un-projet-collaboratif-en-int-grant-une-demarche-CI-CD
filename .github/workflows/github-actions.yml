@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  backend-tests:
+  Backend-tests-and-SonarQube-Analyse:
     runs-on: ubuntu-latest
 
     defaults:
@@ -58,7 +58,7 @@ jobs:
           -Dsonar.projectKey=Projet10-BackEnd \
           -Dsonar.projectName="Projet10-BackEnd"
 
-  frontend-tests:
+  Frontend-tests-and-SonarQube-Analyse:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -97,7 +97,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [frontend-tests, backend-tests]
+    needs: [Frontend-tests-and-SonarQube-Analyse, Backend-tests-and-SonarQube-Analyse]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
