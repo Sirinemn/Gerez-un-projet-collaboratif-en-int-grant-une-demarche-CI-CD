@@ -63,10 +63,21 @@ jobs:
         with:
           name: karma-reports
           path: front/coverage/bobapp/*
+      - name: install scanner
+        run: npm install -g sonarqube-scanner
+      - name: Run Sonar scanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=Projet10-Frontend \
+            -Dsonar.projectName='Projet10 Frontend' \
+            -Dsonar.sources=./src \
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [frontend-tests, backend-tests, SonarQube-Analysis-backend, SonarQube-Analysis-frontend]
+    needs: [frontend-tests, backend-tests, SonarQube-Analysis-backend]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -129,29 +140,3 @@ jobs:
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
           -Dsonar.projectKey=Projet10-BackEnd \
           -Dsonar.projectName="Projet10-BackEnd"
-
-
-  SonarQube-Analysis-frontend:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./front
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Install dependencies
-        run: npm install
-      - name: install scanner
-        run: npm install -g sonarqube-scanner
-      - name: Run Sonar scanner
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=Projet10-Frontend \
-            -Dsonar.projectName='Projet10 Frontend' \
-            -Dsonar.sources=./src \
-          
