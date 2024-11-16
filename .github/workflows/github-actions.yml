@@ -95,7 +95,7 @@ jobs:
         run: |
           sonar-scanner \
             -Dsonar.projectKey=Projet10-Frontend \
-            -Dsonar.projectName='Projet10 Frontend' \
+            -Dsonar.projectName='Projet10-Frontend' \
             -Dsonar.sources=./src \
 
   deploy:
