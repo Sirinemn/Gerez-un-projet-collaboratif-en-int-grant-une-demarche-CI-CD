@@ -57,7 +57,7 @@ jobs:
         run: |
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
           -Dsonar.projectKey=Projet10-BackEnd \
-          -Dsonar.projectName="Projet10-BackEnd"
+          -Dsonar.projectName="Projet10--BackEnd"
 
   Frontend-tests-and-SonarQube-Analyse:
     runs-on: ubuntu-latest
